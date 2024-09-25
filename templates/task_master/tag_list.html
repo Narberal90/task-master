@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Tags
+    <a href="{% url 'task_app:tag-add' %}" class="btn btn-primary btn active" role="button" aria-pressed="true">
+      Add
+    </a>
+  </h1>
+  {% if tags %}
+    <table class="table">
+      <tr>
+        <th>Name</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+      {% for tag in tags %}
+        <tr>
+          <td>
+            {{ tag.name }}
+          </td>
+          <td>
+            <a href="{% url 'task_app:tag-update' pk=tag.id %}"
+               class="btn btn-secondary btn active" role="button" aria-pressed="true">Update</a>
+          </td>
+          <td>
+            <a href="{% url 'task_app:tag-delete' pk=tag.id %}"
+               class="btn  btn active btn-secondary" role="button" aria-pressed="true"
+            >Delete</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>There are no Tags yet.</p>
+  {% endif %}
+{% endblock %}
