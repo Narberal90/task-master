@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>TODO List</h1>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Content</th>
+      <th>Status</th>
+      <th>Created At</th>
+      <th>Deadline</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for task in tasks %}
+      <tr>
+        <td>
+          <strong class="featurette-heading"> {{ task.content }}</strong> <br>
+          <strong class="text-muted">Tags:
+            {% for tag in task.tags.all %}
+              {{ tag.name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+          </strong>
+        </td>
+        <td>
+          {% if task.task_is_done %}
+            <strong class="text-success">Done</strong>
+            <br>
+            <a class="btn btn-warning" href="{% url 'task_app:task-toggle-status' task.id %}">Undo</a>
+          {% else %}
+            <strong class="text-danger">Not done</strong>
+            <br>
+            <a class="btn btn-success" href="{% url 'task_app:task-toggle-status' task.id %}">Complete</a>
+          {% endif %}
+        </td>
+        <td>{{ task.datetime|date:"Y-m-d H:i" }}</td>
+        <td class="text-brown">
+          {% if task.deadline %}
+            <span style="color: brown;">{{ task.deadline|date:"Y-m-d H:i" }}</span>
+          {% else %}
+            <em>No deadline</em>
+          {% endif %}
+        </td>
+        <td>
+          <a class="btn btn-info" href="{% url 'task_app:task-update' task.id %}">Update</a>
+          <br>
+          <a class="btn btn-danger" href="{% url 'task_app:task-delete' task.id %}">Delete</a>
+        </td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="6">No tasks available.</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+  <br>
+  <a href="{% url 'task_app:task-add' %}" class="btn btn-primary">Add New Task</a>
+
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{% if object %}Update Task{% else %}Add New Task{% endif %}</h1>
+
+  {% if messages %}
+    <div class="alert alert-danger">
+      {% for message in messages %}
+        <p>{{ message }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <form method="post" class="form-container" novalidate>
+    {% csrf_token %}
+
+    <div class="form-group">
+      <label for="{{ form.content.id_for_label }}">Content:</label>
+      {{ form.content }}
+      {% if form.content.errors %}
+        <div class="text-danger">
+          {{ form.content.errors.0 }}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      <label for="{{ form.deadline.id_for_label }}">Deadline:</label>
+      {{ form.deadline }}
+      {% if form.deadline.errors %}
+        <div class="text-danger">
+          {{ form.deadline.errors.0 }}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      <label for="{{ form.tags.id_for_label }}">Tags:</label>
+      {{ form.tags }}
+      {% if form.tags.errors %}
+        <div class="text-danger">
+          {{ form.tags.errors.0 }}
+        </div>
+      {% endif %}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+
+  <br>
+  <a href="{% url 'task_app:task-list' %}" class="btn btn-secondary">Back to Task List</a>
+
+{% endblock %}

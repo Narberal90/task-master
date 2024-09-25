@@ -1,0 +1,24 @@
+body {
+    margin-top: 20px;
+}
+
+.sidebar-nav {
+    width: 70%;
+    background-color: #f8f9fa;
+    border-collapse: collapse;
+}
+
+.sidebar-nav td {
+    padding: 10px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.sidebar-nav a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.sidebar-nav a:hover {
+    color: #0056b3;
+}
